@@ -5,7 +5,7 @@ async function delayTest() {
   try {
     const data = await fs.readFile('test-config.json', 'utf8');
     const config = JSON.parse(data);
-    console.log(`waiting for ${config.hold_for} sec`); // Use backticks for template literals
+    console.log(`waiting for ${config.hold_for} min(s)`); // Use backticks for template literals
     setTimeout(async () => {
       const url = `${config.api_url}${config.test_id}`; // Use backticks for template literals
       const response = await fetch(url);
