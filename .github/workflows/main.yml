@@ -11,6 +11,11 @@ jobs:
       - name: check-out
         uses: actions/checkout@v4
 
+      - name: setup node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+
       - name: Install Node-fetch
         run: npm install node-fetch
 
