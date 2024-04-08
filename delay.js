@@ -11,7 +11,7 @@ async function delayTest() {
       const response = await fetch(url);
       const result = await response.json();
       console.log('Data results from API:', result);
-    }, config.hold_for * 1000);
+    }, config.hold_for * 60 * 1000);
   } catch (err) {
     console.error("Error:", err); // Fix the syntax error here
   }
