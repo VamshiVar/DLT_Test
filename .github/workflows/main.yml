@@ -1,0 +1,18 @@
+name: Print Results
+
+on:
+  workflow_dispatch:
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: check-out
+        uses: actions/checkout@v4
+
+      - name: Install Node-fetch
+        run: npm install node-fetch
+
+      - name: Print Data Results
+        run: node delay.js
