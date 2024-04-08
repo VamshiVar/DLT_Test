@@ -1,0 +1,14 @@
+{
+"name": "DLT_Test",
+"version": "1.0.0",
+"description": "To Print the Results",
+"main": "delay.js",
+"scripts": {
+    "start": "node delay.js"
+},
+"author": "John",
+"license": "ISC",
+"dependencies": {
+  "node-fetch":"^2.6.7"
+}
+}
