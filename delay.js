@@ -38,14 +38,25 @@ async function delayTest() {
     const apiUrl = 'https://1b0y3delb4.execute-api.us-west-2.amazonaws.com/prod/scenarios';
     let status = 'Running';
 
-    while (status === 'Running') {
+    while (status === 'Running' || status === 'Queued') {
       status = await checkTestStatus(apiUrl, test.testId);
       console.log(`Test status: ${status}`);
-      if (status === 'Running') {
+      
+      if (status === 'Running' || status === 'Queued') {
         console.log('The test is running');
         await delay(2 * 60 * 1000); // Wait for 2 minutes before checking again
-      } else {
-        console.log('The test is not running. Fetching results...');
+      } else if (status === 'Failed') {
+        console.log('The test has failed');
+        console.log('Fetching results...');
+        const resultResponse = await fetch(`${apiUrl}/${test.testId}`);
+        if (!resultResponse.ok) {
+          throw new Error(`Failed to fetch test result for test ID ${test.testId}`);
+        }
+        const resultData = await resultResponse.json();
+        console.log('Test results:', resultData);
+      } else if (status === 'Completed') {
+        console.log('The test has completed');
+        console.log('Fetching results...');
         const resultResponse = await fetch(`${apiUrl}/${test.testId}`);
         if (!resultResponse.ok) {
           throw new Error(`Failed to fetch test result for test ID ${test.testId}`);
