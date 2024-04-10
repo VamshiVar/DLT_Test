@@ -17,7 +17,7 @@ async function delayTest() {
       return test.testId;
       console.log(`test id is: "${testId}" `);
     } else {
-      throw new Error(`Failed to fetch test name "${testname}" `);
+      throw new Error(`Failed to fetch test name "${testName}" `);
     }
     // setTimeout(async () => {
     //   const url = `${config.api_url}${config.test_id}`; // Use backticks for template literals
