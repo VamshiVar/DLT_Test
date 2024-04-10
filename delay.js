@@ -7,21 +7,31 @@ async function delayTest() {
     const config = JSON.parse(data);
     console.log(`TestName is: ${config.testName}`);
 
+    // Fetch the test data
     const response = await fetch('https://1b0y3delb4.execute-api.us-west-2.amazonaws.com/prod/scenarios/');
     if (!response.ok) {
       throw new Error(`Failed to fetch data`);
     }
     const testData = await response.json();
-    const test = testData.Items.find(item => item.testName === config.testName); // Removed single quotes from `${config.testName}`
-    if (test) {
-      console.log(`test id is: "${test.testId}" `); // Moved console.log before the return statement
-      return test.testId;
-    } else {
-      throw new Error(`Failed to fetch test name "${config.testName}"`);
+
+    // Find the test by testName and retrieve its testId
+    const test = testData.Items.find(item => item.testName === config.testName);
+    if (!test) {
+      throw new Error(`Test with name "${config.testName}" not found`);
     }
+
+    // Construct the API URL with the retrieved testId
+    const apiUrl = `https://1b0y3delb4.execute-api.us-west-2.amazonaws.com/prod/scenarios/${test.testId}`;
+
+    // Fetch the data from the constructed API URL
+    const resultResponse = await fetch(apiUrl);
+    if (!resultResponse.ok) {
+      throw new Error(`Failed to fetch data from ${apiUrl}`);
+    }
+    const resultData = await resultResponse.json();
+    console.log('Data results from API:', resultData);
   } catch (err) {
     console.error("Error:", err);
-    return null;
   }
 }
 
