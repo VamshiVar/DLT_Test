@@ -7,6 +7,13 @@ async function delayTest() {
     const config = JSON.parse(data);
     console.log(`TestName is: ${config.testName}`);
 
+    // Convert holdfor from minutes to milliseconds
+    const holdTimeMs = (config.holdfor + 1) * 60 * 1000; // Add 10 minutes and convert to milliseconds
+
+    // Wait for the calculated hold time
+    console.log(`Waiting for ${config.holdfor + 1} minutes before executing the test...`);
+    await new Promise(resolve => setTimeout(resolve, holdTimeMs));
+
     // Fetch the test data
     const response = await fetch('https://1b0y3delb4.execute-api.us-west-2.amazonaws.com/prod/scenarios/');
     if (!response.ok) {
