@@ -24,6 +24,17 @@ async function delayTest() {
     const config = JSON.parse(data);
     console.log(`TestName is: ${config.testName}`);
 
+    const response = await fetch('https://1b0y3delb4.execute-api.us-west-2.amazonaws.com/prod/scenarios/');
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data`);
+    }
+    const testData = await response.json();
+    const test = testData.Items.find(item => item.testName === config.testName);
+    if (!test) {
+      throw new Error(`Test with name "${config.testName}" not found`);
+    }
+    console.log(`Test ID: ${test.testId}`);
+
     const apiUrl = 'https://1b0y3delb4.execute-api.us-west-2.amazonaws.com/prod/scenarios';
     let status = 'RUNNING';
 
