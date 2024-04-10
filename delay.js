@@ -42,9 +42,9 @@ async function delayTest() {
       status = await checkTestStatus(apiUrl, test.testId);
       console.log(`Test status: ${status}`);
       
-      if (status === 'RUNNING' || status === 'Queued') {
+      if (status === 'RUNNING' || status === 'running' || status === 'Running') {
         console.log('The test is RUNNING');
-      } else if (status === 'Failed' || status === 'COMPLETE') {
+      } else if (status === 'failed' || status === 'complete') {
         console.log(`The test has ${status}`);
         console.log('Fetching results...');
         const resultResponse = await fetch(`${apiUrl}/${test.testId}`);
