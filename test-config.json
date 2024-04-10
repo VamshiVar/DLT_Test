@@ -1,6 +1,3 @@
 {
-  "test_id": "CxQgvR7AS0",
-  "testName": "SDLC Test",
-  "holdfor": 1,
-  "api_url": "https://1b0y3delb4.execute-api.us-west-2.amazonaws.com/prod/scenarios/"
+  "testName": "Print Results"
 }
