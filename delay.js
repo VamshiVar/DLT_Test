@@ -39,7 +39,7 @@ async function delayTest() {
     let status = 'RUNNING';
 
     while (true) {
-      status = await checkTestStatus(apiUrl, config.testId);
+      status = await checkTestStatus(apiUrl, test.testId);
       console.log(`Test status: ${status}`);
       
       if (status === 'RUNNING' || status === 'Queued') {
@@ -47,9 +47,9 @@ async function delayTest() {
       } else if (status === 'Failed' || status === 'COMPLETE') {
         console.log(`The test has ${status}`);
         console.log('Fetching results...');
-        const resultResponse = await fetch(`${apiUrl}/${config.testId}`);
+        const resultResponse = await fetch(`${apiUrl}/${test.testId}`);
         if (!resultResponse.ok) {
-          throw new Error(`Failed to fetch test result for test ID ${config.testId}`);
+          throw new Error(`Failed to fetch test result for test ID ${test.testId}`);
         }
         const resultData = await resultResponse.json();
         console.log('Test results:', resultData);
